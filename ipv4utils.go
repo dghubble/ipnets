@@ -8,6 +8,7 @@ import (
 )
 
 // Merge merges an IP to a value.
+//
 // Merging an IP allows for the use of operations on the IP.
 func Merge(ip []byte) (merged uint32, err error) {
 	if len(ip) != 4 {
@@ -25,6 +26,7 @@ func Merge(ip []byte) (merged uint32, err error) {
 }
 
 // Split splits a value into an IP.
+//
 // After merging an IP to perform operations on it, Split
 // can be used to put the IP back into a slice.
 func Split(merged uint32) []byte {
@@ -41,10 +43,14 @@ func Split(merged uint32) []byte {
 }
 
 // Subnet subnets a network with the provided amount of bits.
+//
 // The network IP may have host bits set, as long as
 // this address is a valid network address within the new subnet mask.
+//
 // This means that you can provide an offset for subnetting through the network IP:
+//
 // Network IP: 192.168.1.128/24, bits: 1 -> First subnet is 192.168.1.128/25, not 192.168.1.0/25
+//
 // The channel to provide the subnets is closed once subnetting is completed.
 func Subnet(network net.IPNet, bits uint) (subnets chan net.IPNet, err error) {
 	unchecked := network.IP
