@@ -14,7 +14,7 @@ func Merge(ip []byte) (merged uint32, err error) {
 	if len(ip) != 4 {
 		return 0, fmt.Errorf("%s is not an IPv4 address.", ip)
 	}
-	merged = uint32(0)
+	merged = 0
 	// Takes the most significant octet,
 	// shifts it to the left end of merged,
 	// takes the next lesser significant octet,
