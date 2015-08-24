@@ -6,6 +6,16 @@ import (
 	"testing"
 )
 
+func BenchmarkSubnet(t *testing.B) {
+	net := ipv4Net("172.16.0.0/16")
+	t.ResetTimer()
+	for i := 0; i < t.N; i++ {
+		ch, _ := Subnet(net, 4)
+		for _ = range ch {
+		}
+	}
+}
+
 func TestMerge(t *testing.T) {
 	cases := []struct {
 		in       []byte
