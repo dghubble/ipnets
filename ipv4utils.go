@@ -51,7 +51,7 @@ func Split(merged uint32) []byte {
 //
 // Network IP: 192.168.1.128/24, bits: 1 -> First subnet is 192.168.1.128/25, not 192.168.1.0/25
 //
-// The channel to provide the subnets is closed once subnetting is completed.
+// The channel to provide the subnets is unbuffered and closed once subnetting is completed.
 func Subnet(network net.IPNet, bits uint) (subnets chan net.IPNet, err error) {
 	unchecked := network.IP
 	originalMask := network.Mask
