@@ -8,14 +8,14 @@ import (
 
 func TestSubnet(t *testing.T) {
 	cases := []struct {
-		network  net.IPNet
+		network  *net.IPNet
 		shift    int
-		expected []net.IPNet
+		expected []*net.IPNet
 	}{
 		// shift 1
 		{
 			mustIPNet(t, "172.16.0.0/16"), 1,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "172.16.0.0/17"),
 				mustIPNet(t, "172.16.128.0/17"),
 			},
@@ -23,7 +23,7 @@ func TestSubnet(t *testing.T) {
 		// shift 2
 		{
 			mustIPNet(t, "172.16.0.0/16"), 2,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "172.16.0.0/18"),
 				mustIPNet(t, "172.16.64.0/18"),
 				mustIPNet(t, "172.16.128.0/18"),
@@ -33,7 +33,7 @@ func TestSubnet(t *testing.T) {
 		// shift 3
 		{
 			mustIPNet(t, "172.16.0.0/16"), 3,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "172.16.0.0/19"),
 				mustIPNet(t, "172.16.32.0/19"),
 				mustIPNet(t, "172.16.64.0/19"),
@@ -47,14 +47,14 @@ func TestSubnet(t *testing.T) {
 		// edge cases
 		{
 			mustIPNet(t, "10.0.0.0/30"), 1,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/31"),
 				mustIPNet(t, "10.0.0.2/31"),
 			},
 		},
 		{
 			mustIPNet(t, "10.0.0.0/30"), 2,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/32"),
 				mustIPNet(t, "10.0.0.1/32"),
 				mustIPNet(t, "10.0.0.2/32"),
@@ -64,13 +64,13 @@ func TestSubnet(t *testing.T) {
 		// zeros
 		{
 			mustIPNet(t, "0.0.0.0/0"), 0,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "0.0.0.0/0"),
 			},
 		},
 		{
 			mustIPNet(t, "0.0.0.0/0"), 2,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "0.0.0.0/2"),
 				mustIPNet(t, "64.0.0.0/2"),
 				mustIPNet(t, "128.0.0.0/2"),
@@ -79,19 +79,19 @@ func TestSubnet(t *testing.T) {
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 0,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/16"),
 			},
 		},
 		{
 			mustIPNet(t, "192.168.1.0/24"), 0,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "192.168.1.0/24"),
 			},
 		},
 	}
 	for _, c := range cases {
-		subnets, err := SubnetShift(&c.network, c.shift)
+		subnets, err := SubnetShift(c.network, c.shift)
 		if err != nil {
 			t.Errorf("expected nil, got %v", err)
 		}
@@ -101,15 +101,15 @@ func TestSubnet(t *testing.T) {
 	}
 }
 
-func mustIPNet(t *testing.T, s string) net.IPNet {
+func mustIPNet(t *testing.T, s string) *net.IPNet {
 	_, ipnet, err := net.ParseCIDR(s)
 	if err != nil {
 		t.Errorf("expected nil, got %v", err)
 	}
-	return *ipnet
+	return ipnet
 }
 
-func equalSubnets(actual []net.IPNet, expected []net.IPNet) bool {
+func equalSubnets(actual []*net.IPNet, expected []*net.IPNet) bool {
 	for i, e := range expected {
 		a := actual[i]
 		if !e.IP.Equal(a.IP) || !bytes.Equal(e.Mask, a.Mask) {
@@ -121,26 +121,26 @@ func equalSubnets(actual []net.IPNet, expected []net.IPNet) bool {
 
 func TestSubnetInto(t *testing.T) {
 	cases := []struct {
-		network  net.IPNet
+		network  *net.IPNet
 		count    int
-		expected []net.IPNet
+		expected []*net.IPNet
 	}{
 		{
 			mustIPNet(t, "10.0.0.0/16"), 1,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/16"),
 			},
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 2,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/17"),
 				mustIPNet(t, "10.0.128.0/17"),
 			},
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 3,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/18"),
 				mustIPNet(t, "10.0.64.0/18"),
 				mustIPNet(t, "10.0.128.0/18"),
@@ -149,7 +149,7 @@ func TestSubnetInto(t *testing.T) {
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 4,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/18"),
 				mustIPNet(t, "10.0.64.0/18"),
 				mustIPNet(t, "10.0.128.0/18"),
@@ -158,7 +158,7 @@ func TestSubnetInto(t *testing.T) {
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 5,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/19"),
 				mustIPNet(t, "10.0.32.0/19"),
 				mustIPNet(t, "10.0.64.0/19"),
@@ -171,7 +171,7 @@ func TestSubnetInto(t *testing.T) {
 		},
 		{
 			mustIPNet(t, "10.0.0.0/16"), 12,
-			[]net.IPNet{
+			[]*net.IPNet{
 				mustIPNet(t, "10.0.0.0/20"),
 				mustIPNet(t, "10.0.16.0/20"),
 				mustIPNet(t, "10.0.32.0/20"),
@@ -192,7 +192,7 @@ func TestSubnetInto(t *testing.T) {
 		},
 	}
 	for _, c := range cases {
-		subnets, err := SubnetInto(&c.network, c.count)
+		subnets, err := SubnetInto(c.network, c.count)
 		if err != nil {
 			t.Errorf("expected nil, got %v", err)
 		}

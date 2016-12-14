@@ -8,7 +8,7 @@ import (
 
 // SubnetInto wraps SubnetShift and divides a network into at least count-many,
 // equal-sized subnets, which are as large as allowed.
-func SubnetInto(network *net.IPNet, count int) ([]net.IPNet, error) {
+func SubnetInto(network *net.IPNet, count int) ([]*net.IPNet, error) {
 	maskBits, _ := network.Mask.Size()
 	hostBits := 32 - maskBits
 	hostCount := 1 << uint(hostBits)
@@ -23,7 +23,7 @@ func SubnetInto(network *net.IPNet, count int) ([]net.IPNet, error) {
 }
 
 // SubnetShift divides a network into subnets by shifting the given number of bits.
-func SubnetShift(network *net.IPNet, bits int) ([]net.IPNet, error) {
+func SubnetShift(network *net.IPNet, bits int) ([]*net.IPNet, error) {
 	if bits < 0 {
 		return nil, fmt.Errorf("bit shift may not be negative, got %d", bits)
 	}
@@ -32,7 +32,7 @@ func SubnetShift(network *net.IPNet, bits int) ([]net.IPNet, error) {
 	}
 	// network divides into 2^bits subnets
 	subnetCount := 1 << uint(bits)
-	subnets := make([]net.IPNet, subnetCount)
+	subnets := make([]*net.IPNet, subnetCount)
 
 	// network info
 	start := network.IP
@@ -54,7 +54,7 @@ func SubnetShift(network *net.IPNet, bits int) ([]net.IPNet, error) {
 
 	for i := 0; i < subnetCount; i++ {
 		ip := numeric(start) + uint32(i*hostCount)
-		subnets[i] = net.IPNet{
+		subnets[i] = &net.IPNet{
 			IP:   bytewise(ip),
 			Mask: newMask,
 		}
