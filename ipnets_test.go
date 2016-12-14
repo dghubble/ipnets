@@ -89,7 +89,6 @@ func TestSubnet(t *testing.T) {
 				mustIPNet(t, "192.168.1.0/24"),
 			},
 		},
-		
 	}
 	for _, c := range cases {
 		subnets, err := SubnetShift(&c.network, c.shift)

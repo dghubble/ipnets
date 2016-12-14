@@ -1,9 +1,9 @@
 package ipnets
 
 import (
-	"net"
-	"math"
 	"fmt"
+	"math"
+	"net"
 )
 
 // SubnetInto wraps SubnetShift and divides a network into at least count-many,
@@ -39,23 +39,23 @@ func SubnetShift(network *net.IPNet, bits int) ([]net.IPNet, error) {
 	maskBits, _ := network.Mask.Size()
 	hostBits := 32 - maskBits
 
-	if maskBits + bits > 32 {
-		return nil, fmt.Errorf("network subnet mask greater than /32, /%d is invalid", maskBits + bits)
+	if maskBits+bits > 32 {
+		return nil, fmt.Errorf("network subnet mask greater than /32, /%d is invalid", maskBits+bits)
 	}
 
 	// divide network into subnets
 	newMaskBits := maskBits + bits
 	newHostBits := hostBits - bits
-	// subnet bitmasks are shifted by 'bits' places 
+	// subnet bitmasks are shifted by 'bits' places
 	newMask := net.CIDRMask(newMaskBits, 32)
-	
+
 	// hosts per subnet
 	hostCount := 1 << uint(newHostBits)
 
 	for i := 0; i < subnetCount; i++ {
-		ip := numeric(start) + uint32(i * hostCount)
+		ip := numeric(start) + uint32(i*hostCount)
 		subnets[i] = net.IPNet{
-			IP: bytewise(ip),
+			IP:   bytewise(ip),
 			Mask: newMask,
 		}
 	}
@@ -71,7 +71,7 @@ func numeric(bytes net.IP) uint32 {
 	// most significant to least significant
 	for i, b := range []byte(bytes) {
 		// bitwise or ("append" in this case)
-		ip |= uint32(b) << (8 * uint32(3 - i))
+		ip |= uint32(b) << (8 * uint32(3-i))
 	}
 	return ip
 }
