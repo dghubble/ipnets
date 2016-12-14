@@ -92,7 +92,7 @@ func TestSubnet(t *testing.T) {
 		
 	}
 	for _, c := range cases {
-		subnets, err := Subnet(c.network, c.shift)
+		subnets, err := SubnetShift(&c.network, c.shift)
 		if err != nil {
 			t.Errorf("expected nil, got %v", err)
 		}
@@ -193,7 +193,7 @@ func TestSubnetInto(t *testing.T) {
 		},
 	}
 	for _, c := range cases {
-		subnets, err := SubnetInto(c.network, c.count)
+		subnets, err := SubnetInto(&c.network, c.count)
 		if err != nil {
 			t.Errorf("expected nil, got %v", err)
 		}

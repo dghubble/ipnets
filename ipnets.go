@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// SubnetInto wraps Subnet and divides a network into count-many,
+// SubnetInto wraps SubnetShift and divides a network into at least count-many,
 // equal-sized subnets, which are as large as allowed.
-func SubnetInto(network net.IPNet, count int) ([]net.IPNet, error) {
+func SubnetInto(network *net.IPNet, count int) ([]net.IPNet, error) {
 	maskBits, _ := network.Mask.Size()
 	hostBits := 32 - maskBits
 	hostCount := 1 << uint(hostBits)
@@ -19,11 +19,11 @@ func SubnetInto(network net.IPNet, count int) ([]net.IPNet, error) {
 	// truncates toward zero)
 	newHostBits := int(math.Log2(ideal))
 	shift := hostBits - newHostBits
-	return Subnet(network, shift)
+	return SubnetShift(network, shift)
 }
 
-// Subnet divides a network into subnets by shifting the given number of bits.
-func Subnet(network net.IPNet, bits int) ([]net.IPNet, error) {
+// SubnetShift divides a network into subnets by shifting the given number of bits.
+func SubnetShift(network *net.IPNet, bits int) ([]net.IPNet, error) {
 	if bits < 0 {
 		return nil, fmt.Errorf("bit shift may not be negative, got %d", bits)
 	}
