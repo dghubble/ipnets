@@ -1,5 +1,4 @@
-
-# ipnets [![Build Status](https://travis-ci.org/dghubble/ipnets.png?branch=master)](https://travis-ci.org/dghubble/ipnets) [![GoDoc](https://godoc.org/github.com/dghubble/ipnets?status.svg)](https://godoc.org/github.com/dghubble/ipnets)
+# ipnets [![Build Status](https://travis-ci.org/dghubble/ipnets.svg?branch=master)](https://travis-ci.org/dghubble/ipnets) [![GoDoc](https://godoc.org/github.com/dghubble/ipnets?status.svg)](https://godoc.org/github.com/dghubble/ipnets)
 
 Package `ipnets` divides `net.IPNet` networks into subnets.
 
