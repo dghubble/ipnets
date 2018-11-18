@@ -4,8 +4,8 @@ Package ipnets provides net.IPNet division functions.
 Divide a net.IPNet by shifting the subnet bitmask with `SubnetShift`.
 
 	import (
-			"net"
-			"github.com/dghubble/ipnets"
+		"net"
+		"github.com/dghubble/ipnets"
 	)
 	...
 
