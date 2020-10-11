@@ -1,4 +1,4 @@
-# ipnets [![Build Status](https://github.com/dghubble/ipnets/workflows/go/badge.svg)](https://github.com/dghubble/ipnets/actions?query=workflow%3Atest+branch%3Amaster) [![Coverage](https://gocover.io/_badge/github.com/dghubble/ipnets)](https://gocover.io/github.com/dghubble/ipnets) [![GoDoc](https://godoc.org/github.com/dghubble/ipnets?status.svg)](https://godoc.org/github.com/dghubble/ipnets)
+# ipnets [![Build Status](https://github.com/dghubble/ipnets/workflows/test/badge.svg)](https://github.com/dghubble/ipnets/actions?query=workflow%3Atest+branch%3Amaster) [![Coverage](https://gocover.io/_badge/github.com/dghubble/ipnets)](https://gocover.io/github.com/dghubble/ipnets) [![GoDoc](https://godoc.org/github.com/dghubble/ipnets?status.svg)](https://godoc.org/github.com/dghubble/ipnets)
 
 <img align="right" src="https://storage.googleapis.com/dghubble/gopher-ipnets.png">
 
