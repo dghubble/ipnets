@@ -1,4 +1,8 @@
-# ipnets [![GoDoc](https://pkg.go.dev/badge/github.com/dghubble/ipnets.svg)](https://pkg.go.dev/github.com/dghubble/ipnets) [![Workflow](https://github.com/dghubble/ipnets/actions/workflows/test.yaml/badge.svg)](https://github.com/dghubble/ipnets/actions/workflows/test.yaml?query=branch%3Amain) [![Coverage](https://gocover.io/_badge/github.com/dghubble/ipnets)](https://gocover.io/github.com/dghubble/ipnets) [![Sponsors](https://img.shields.io/github/sponsors/dghubble?logo=github)](https://github.com/sponsors/dghubble) [![Twitter](https://img.shields.io/badge/twitter-follow-1da1f2?logo=twitter)](https://twitter.com/dghubble)
+# ipnets
+[![GoDoc](https://pkg.go.dev/badge/github.com/dghubble/ipnets.svg)](https://pkg.go.dev/github.com/dghubble/ipnets)
+[![Workflow](https://github.com/dghubble/ipnets/actions/workflows/test.yaml/badge.svg)](https://github.com/dghubble/ipnets/actions/workflows/test.yaml?query=branch%3Amain)
+[![Sponsors](https://img.shields.io/github/sponsors/dghubble?logo=github)](https://github.com/sponsors/dghubble)
+[![Mastodon](https://img.shields.io/badge/follow-news-6364ff?logo=mastodon)](https://fosstodon.org/@typhoon)
 
 <img align="right" src="https://storage.googleapis.com/dghubble/gopher-ipnets.png">
 
